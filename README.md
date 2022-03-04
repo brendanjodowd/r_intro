@@ -1,4 +1,4 @@
-# map_guide
-Guide to making maps of Ireland in R
+# cso_guide
+Guide to importing and plotting CSO data in R
 
-See here: [https://brendanjodowd.github.io/map_guide/](https://brendanjodowd.github.io/map_guide/)
+See here: [https://brendanjodowd.github.io/cso_guide/](https://brendanjodowd.github.io/cso_guide/)
