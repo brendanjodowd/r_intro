@@ -1,4 +1,4 @@
-# cso_guide
-Guide to importing and plotting CSO data in R
+# r_intro
+A crash course to using R
 
-See here: [https://brendanjodowd.github.io/cso_guide/](https://brendanjodowd.github.io/cso_guide/)
+See here: [https://brendanjodowd.github.io/r_intro/](https://brendanjodowd.github.io/r_intro/)
