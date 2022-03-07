@@ -27,9 +27,9 @@ R is a flexible, convenient and powerful tool for managing and analysing data, a
 
 The capabilities of R are extended through a wide array of packages. As a beginner with R, most, if not all, of the packages you use will be downloaded from an online repository of packages called CRAN, which stands for the Comprehensive R Archive Network. Packages are downloaded from CRAN within the R environment, you rarely have to visit the CRAN website at all. There is a stringent process to getting your package included on CRAN which includes a series of checks and testing, so there is a very low likelihood of you ever downloading malicious code from CRAN.
 
-Tidyverse is a very widely used collection of packages which makes it easier to write and read code in R. It is so commonly used that it is almost ubiquitous, so I wouldn't hesitate to recommend that you begin learning R through tidyverse. If you are not using tidyverse and you are only using the handful of default packages in R then you would say that you are using 'base R', where 'base' is the main default package (I think there are seven default packages). It is good to understand the functionality of base R, but I think it's ok to pick this up as you go along rather than starting with exclusive use of base R.
+Tidyverse is a very widely used collection of packages which makes it easier to write and read code in R. It is so commonly used that it is almost ubiquitous, so I wouldn't hesitate to recommend that you begin learning R through tidyverse. If you are not using tidyverse and you are only using the handful of default packages in R then you would say that you are using 'base R', where 'base' is the main default package (I think there are seven default packages). It is good to understand the functionality of base R, but I think it's ok to pick this up as you go along rather than starting out with exclusive use of base R.
 
-To install a package you use the function `install.packages`, so to install the tidyverse packages you run `install.packages("tidyverse")`. Then to use the package you have to load it into your environment using the function `library`, so to use the tidyverse functions and features you run `library(tidyverse)` (note you need inverted commas for `install.packages` but not for `library`). You only have to install a package once, or again if you want to update the package, but you have to load the package every time you start a new session in R. 
+To install a package you use the function `install.packages`, so to install the tidyverse packages you run `install.packages("tidyverse")`. Then to use the package you have to load it into your environment using the function `library`, so to use the tidyverse functions and features you run `library(tidyverse)` (note you need inverted commas for `install.packages` but not for `library`). **You only have to install a package once, or again if you want to update the package, but you have to load the package every time you start a new session in R**. 
 
 Within tidyverse there are eight core packages, and then a couple of extra packages and some back-end packages. All of these are installed when you run `install.packages("tidyverse")`, but only the core packages are loaded when you run `library(tidyverse)`. This is not something that you have to worry too much about, it just means that you have to run an extra `library` line when you want to use one of those extra packages beyond the core tidyverse packages.
 
@@ -50,13 +50,29 @@ A screenshot of RStudio is shown below. There are four main panels. This guide w
 - I would call the top right panel the environment panel, even though 'Environment' is only one of the six tabs in that panel, because I have never used the other five tabs. The environment panel shows you all the datasets and other variables that you have created. There is a blue arrow next to the datasets which allows you to browse their structure. Note that there are some datasets which exist and which you can use, but they don't appear in the environment panel. These are usually associated with training or as demo datasets to play with a package. One of these is `mtcars`, which contains information on 32 cars. In the code in the screenshot, I have used `mtcars` to make a new duplicate dataset called `my_data` which does appear in the environment panel.
 - The bottom right panel shows plots and help, and also allows you to browse files and installed packages. I don't think it is too difficult to find your way around this panel. If you create a plot or run a help command then the appropriate tab will become active. 
 
-## Setup
+![A screenshot of the RStudio environment](r_environment.png)
 
-We will be using the [tidyverse](https://tidyverse.tidyverse.org/) collection of packages throughout. Each of these has to be installed once with the `install.packages` function (e.g. `install.packages("tidyverse")`) and after that you just need to load the libraries whenever you start a new session in R using the two lines below.
+## A word on web restrictions
 
-```{r packages , message=FALSE, warning=FALSE}
-library(tidyverse)
-```
+R needs to access the web in order to download packages from CRAN. You may also want to import data from the web, e.g. through the csodata package for importing data from the CSO website. If you are having trouble with these steps then it may be because your organisation has not allowed R to access the web, so you might need to contact your IT department. If you are in the same organisation as me and you are experiencing difficulties, let me know, there are some settings that I can pass on that will help. 
 
-## Finding data
+## Making objects
+
+## Drop, keep and rename variables
+
+## Filter
+
+## New variables
+
+## Counting and summarising
+
+## Combining datasets
+
+## Sorting and row-wise operations
+
+## Converting and rounding
+
+## Dealing with strings
+
+## File I/O
 

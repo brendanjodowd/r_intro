@@ -256,8 +256,8 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <div id="packages-and-tidyverse" class="section level3">
 <h3>Packages and Tidyverse</h3>
 <p>The capabilities of R are extended through a wide array of packages. As a beginner with R, most, if not all, of the packages you use will be downloaded from an online repository of packages called CRAN, which stands for the Comprehensive R Archive Network. Packages are downloaded from CRAN within the R environment, you rarely have to visit the CRAN website at all. There is a stringent process to getting your package included on CRAN which includes a series of checks and testing, so there is a very low likelihood of you ever downloading malicious code from CRAN.</p>
-<p>Tidyverse is a very widely used collection of packages which makes it easier to write and read code in R. It is so commonly used that it is almost ubiquitous, so I wouldn’t hesitate to recommend that you begin learning R through tidyverse. If you are not using tidyverse and you are only using the handful of default packages in R then you would say that you are using ‘base R’, where ‘base’ is the main default package (I think there are seven default packages). It is good to understand the functionality of base R, but I think it’s ok to pick this up as you go along rather than starting with exclusive use of base R.</p>
-<p>To install a package you use the function <code>install.packages</code>, so to install the tidyverse packages you run <code>install.packages("tidyverse")</code>. Then to use the package you have to load it into your environment using the function <code>library</code>, so to use the tidyverse functions and features you run <code>library(tidyverse)</code> (note you need inverted commas for <code>install.packages</code> but not for <code>library</code>). You only have to install a package once, or again if you want to update the package, but you have to load the package every time you start a new session in R.</p>
+<p>Tidyverse is a very widely used collection of packages which makes it easier to write and read code in R. It is so commonly used that it is almost ubiquitous, so I wouldn’t hesitate to recommend that you begin learning R through tidyverse. If you are not using tidyverse and you are only using the handful of default packages in R then you would say that you are using ‘base R’, where ‘base’ is the main default package (I think there are seven default packages). It is good to understand the functionality of base R, but I think it’s ok to pick this up as you go along rather than starting out with exclusive use of base R.</p>
+<p>To install a package you use the function <code>install.packages</code>, so to install the tidyverse packages you run <code>install.packages("tidyverse")</code>. Then to use the package you have to load it into your environment using the function <code>library</code>, so to use the tidyverse functions and features you run <code>library(tidyverse)</code> (note you need inverted commas for <code>install.packages</code> but not for <code>library</code>). <strong>You only have to install a package once, or again if you want to update the package, but you have to load the package every time you start a new session in R</strong>.</p>
 <p>Within tidyverse there are eight core packages, and then a couple of extra packages and some back-end packages. All of these are installed when you run <code>install.packages("tidyverse")</code>, but only the core packages are loaded when you run <code>library(tidyverse)</code>. This is not something that you have to worry too much about, it just means that you have to run an extra <code>library</code> line when you want to use one of those extra packages beyond the core tidyverse packages.</p>
 </div>
 </div>
@@ -276,14 +276,44 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <li>I would call the top right panel the environment panel, even though ‘Environment’ is only one of the six tabs in that panel, because I have never used the other five tabs. The environment panel shows you all the datasets and other variables that you have created. There is a blue arrow next to the datasets which allows you to browse their structure. Note that there are some datasets which exist and which you can use, but they don’t appear in the environment panel. These are usually associated with training or as demo datasets to play with a package. One of these is <code>mtcars</code>, which contains information on 32 cars. In the code in the screenshot, I have used <code>mtcars</code> to make a new duplicate dataset called <code>my_data</code> which does appear in the environment panel.</li>
 <li>The bottom right panel shows plots and help, and also allows you to browse files and installed packages. I don’t think it is too difficult to find your way around this panel. If you create a plot or run a help command then the appropriate tab will become active.</li>
 </ul>
+<div class="figure">
+<img src="r_environment.png" alt="" />
+<p class="caption">A screenshot of the RStudio environment</p>
 </div>
-<div id="setup" class="section level2">
-<h2>Setup</h2>
-<p>We will be using the <a href="https://tidyverse.tidyverse.org/">tidyverse</a> collection of packages throughout. Each of these has to be installed once with the <code>install.packages</code> function (e.g. <code>install.packages("tidyverse")</code>) and after that you just need to load the libraries whenever you start a new session in R using the two lines below.</p>
-<pre class="r"><code>library(tidyverse)</code></pre>
 </div>
-<div id="finding-data" class="section level2">
-<h2>Finding data</h2>
+<div id="a-word-on-web-restrictions" class="section level2">
+<h2>A word on web restrictions</h2>
+<p>R needs to access the web in order to download packages from CRAN. You may also want to import data from the web, e.g. through the csodata package for importing data from the CSO website. If you are having trouble with these steps then it may be because your organisation has not allowed R to access the web, so you might need to contact your IT department. If you are in the same organisation as me and you are experiencing difficulties, let me know, there are some settings that I can pass on that will help.</p>
+</div>
+<div id="making-objects" class="section level2">
+<h2>Making objects</h2>
+</div>
+<div id="drop-keep-and-rename-variables" class="section level2">
+<h2>Drop, keep and rename variables</h2>
+</div>
+<div id="filter" class="section level2">
+<h2>Filter</h2>
+</div>
+<div id="new-variables" class="section level2">
+<h2>New variables</h2>
+</div>
+<div id="counting-and-summarising" class="section level2">
+<h2>Counting and summarising</h2>
+</div>
+<div id="combining-datasets" class="section level2">
+<h2>Combining datasets</h2>
+</div>
+<div id="sorting-and-row-wise-operations" class="section level2">
+<h2>Sorting and row-wise operations</h2>
+</div>
+<div id="converting-and-rounding" class="section level2">
+<h2>Converting and rounding</h2>
+</div>
+<div id="dealing-with-strings" class="section level2">
+<h2>Dealing with strings</h2>
+</div>
+<div id="file-io" class="section level2">
+<h2>File I/O</h2>
 </div>
 
 
