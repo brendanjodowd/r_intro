@@ -12,7 +12,7 @@
 <meta name="author" content="Home" />
 
 
-<title>Importing and plotting CSO data</title>
+<title>Introduction to R</title>
 
 <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -241,7 +241,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Importing and plotting CSO data</h1>
+<h1 class="title toc-ignore">Introduction to R</h1>
 <h4 class="author"><a href="https://brendanjodowd.github.io">Home</a></h4>
 
 </div>
@@ -252,27 +252,15 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </style>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>As Ireland’s national statistics insitute, the Central Statistics Office (CSO) publishes a large range of data about Ireland’s people, society and economy. The CSO’s main data dissemination service is PxStat, which contains thousands of data tables that users can search, filter and download in a variety of formats on the <a href="data.cso.ie">PxStat website</a>. In addition, the CSO has developed a package which allows R users to import PxStat tables directly into the R environment. This guide gives an overview of how to import data and carry out some basic manipulations.</p>
+<p>This is a guide to using R</p>
 </div>
 <div id="setup" class="section level2">
 <h2>Setup</h2>
-<p>As well as the <a href="https://rdrr.io/cran/csodata/">csodata package</a> for R, we will be using the <a href="https://tidyverse.tidyverse.org/">tidyverse</a> collection of packages throughout. Each of these has to be installed once with the <code>install.packages</code> function (e.g. <code>install.packages("csodata")</code>) and after that you just need to load the libraries whenever you start a new session in R using the two lines below.</p>
-<pre class="r"><code>library(tidyverse)
-library(csodata)</code></pre>
+<p>We will be using the <a href="https://tidyverse.tidyverse.org/">tidyverse</a> collection of packages throughout. Each of these has to be installed once with the <code>install.packages</code> function (e.g. <code>install.packages("tidyverse")</code>) and after that you just need to load the libraries whenever you start a new session in R using the two lines below.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
 </div>
 <div id="finding-data" class="section level2">
 <h2>Finding data</h2>
-<p>There are over 7,500 data tables on PxStat. Each one has a unique code, most of which are five characters long. Usually CSO publications inlcude links to associated tables on PxStat, so if you are interested in a particular publication then you may already be able to get the code for the table that you’re looking for. Otherwise the best way to find data is probably through the search function on the <a href="data.cso.ie">PxStat website</a>. See the figure below where the orange rectangle is highlighting the search box where the term “Business demography” has been inserted. Alternatively you can use the Browse function to the left and find the topic of interest there (see green rectangle). The list of tables generated gives an overview of the contents as well as the table code (in purple rectangles in the image below). You can click on any of the tables to find out more about them.</p>
-<div class="figure">
-<img src="pxstat_screenshot.png" alt="Screenshot of PxStat website showing tools for finding tables" width="100%" />
-<p class="caption">
-Screenshot of PxStat website showing tools for finding tables
-</p>
-</div>
-</div>
-<div id="import-filter-and-plot" class="section level2">
-<h2>Import, filter and plot</h2>
-<p>Datasets are imported using the <code>cso_get_data</code> function from the csodata package.</p>
 </div>
 
 

@@ -1,5 +1,5 @@
 ---
-title: "Importing and plotting CSO data"
+title: "Introduction to R"
 author: "[Home](https://brendanjodowd.github.io)"
 output: 
   html_document:
@@ -21,25 +21,15 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 
 ## Introduction
 
-As Ireland's national statistics insitute, the Central Statistics Office (CSO) publishes a large range of data about Ireland's people, society and economy. The CSO's main data dissemination service is PxStat, which contains thousands of data tables that users can search, filter and download in a variety of formats on the [PxStat website](data.cso.ie). In addition, the CSO has developed a package which allows R users to import PxStat tables directly into the R environment. This guide gives an overview of how to import data and carry out some basic manipulations. 
+This is a guide to using R
 
 ## Setup
 
-As well as the [csodata package](https://rdrr.io/cran/csodata/) for R, we will be using the [tidyverse](https://tidyverse.tidyverse.org/) collection of packages throughout. Each of these has to be installed once with the `install.packages` function (e.g. `install.packages("csodata")`) and after that you just need to load the libraries whenever you start a new session in R using the two lines below.
+We will be using the [tidyverse](https://tidyverse.tidyverse.org/) collection of packages throughout. Each of these has to be installed once with the `install.packages` function (e.g. `install.packages("tidyverse")`) and after that you just need to load the libraries whenever you start a new session in R using the two lines below.
 
 ```{r packages , message=FALSE, warning=FALSE}
 library(tidyverse)
-library(csodata)
 ```
 
 ## Finding data
 
-There are over 7,500 data tables on PxStat. Each one has a unique code, most of which are five characters long. Usually CSO publications inlcude links to associated tables on PxStat, so if you are interested in a particular publication then you may already be able to get the code for the table that you're looking for. Otherwise the best way to find data is probably through the search function on the [PxStat website](data.cso.ie). See the figure below where the orange rectangle is highlighting the search box where the term "Business demography" has been inserted. Alternatively you can use the Browse function to the left and find the topic of interest there (see green rectangle). The list of tables generated gives an overview of the contents as well as the table code (in purple rectangles in the image below). You can click on any of the tables to find out more about them.
-
-```{r screenshot , echo=F, fig.cap="Screenshot of PxStat website showing tools for finding tables" , out.width="100%"}
-knitr::include_graphics(here::here("pxstat_screenshot.png"))
-```
-
-## Import, filter and plot
-
-Datasets are imported using the `cso_get_data` function from the csodata package. 
