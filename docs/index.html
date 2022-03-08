@@ -250,15 +250,15 @@ div.tocify {
 <style>
 div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </style>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
 <p>R is a flexible, convenient and powerful tool for managing and analysing data, and well as for creating publication materials such as visualisations, reports and dashboards. RStudio is an IDE (Integrated Development Environment) for using R. R is free to install, as is the open source edition of RStudio (there are professional and hosted versions of RStudio which are not free). In my opinion, R and RStudio provide at least as much of the functionality you would see in other quite expensive statistical computing platforms.</p>
 <div id="packages-and-tidyverse" class="section level3">
 <h3>Packages and Tidyverse</h3>
-<p>The capabilities of R are extended through a wide array of packages. As a beginner with R, most, if not all, of the packages you use will be downloaded from an online repository of packages called CRAN, which stands for the Comprehensive R Archive Network. Packages are downloaded from CRAN within the R environment, you rarely have to visit the CRAN website at all. There is a stringent process to getting your package included on CRAN which includes a series of checks and testing, so there is a very low likelihood of you ever downloading malicious code from CRAN.</p>
-<p>Tidyverse is a very widely used collection of packages which makes it easier to write and read code in R. It is so commonly used that it is almost ubiquitous, so I wouldn’t hesitate to recommend that you begin learning R through tidyverse. If you are not using tidyverse and you are only using the handful of default packages in R then you would say that you are using ‘base R’, where ‘base’ is the main default package (I think there are seven default packages). It is good to understand the functionality of base R, but I think it’s ok to pick this up as you go along rather than starting out with exclusive use of base R.</p>
-<p>To install a package you use the function <code>install.packages</code>, so to install the tidyverse packages you run <code>install.packages("tidyverse")</code>. Then to use the package you have to load it into your environment using the function <code>library</code>, so to use the tidyverse functions and features you run <code>library(tidyverse)</code> (note you need inverted commas for <code>install.packages</code> but not for <code>library</code>). <strong>You only have to install a package once, or again if you want to update the package, but you have to load the package every time you start a new session in R</strong>.</p>
-<p>Within tidyverse there are eight core packages, and then a couple of extra packages and some back-end packages. All of these are installed when you run <code>install.packages("tidyverse")</code>, but only the core packages are loaded when you run <code>library(tidyverse)</code>. This is not something that you have to worry too much about, it just means that you have to run an extra <code>library</code> line when you want to use one of those extra packages beyond the core tidyverse packages.</p>
+<p>The capabilities of R are extended through a wide array of packages. As a beginner with R, it is likely that all of the extra packages that you use will be downloaded from an online repository of packages called CRAN, which stands for the Comprehensive R Archive Network. Packages are downloaded from CRAN within the R environment, you rarely have to visit the CRAN website at all. There is a stringent process to getting your package included on CRAN which includes a series of checks and testing, so there is a very low likelihood of you ever downloading malicious code from CRAN.</p>
+<p>Tidyverse is a very widely used collection of packages which makes it easier to write and read code in R. It is so commonly used that it is almost ubiquitous, so I wouldn’t hesitate to recommend that you begin learning R through tidyverse. If you are not using tidyverse and you are only using the handful of default packages in R then you would say that you are using ‘base R’, where ‘base’ is the main default package (I think there are seven default packages). This is not an ‘either-or’ decision, when you load tidyverse it is perfectly fine to write code using the ‘base’ set of functions. It’s good to understand base R, but I think it’s ok to pick this up as you go along rather than starting out with exclusive use of base R.</p>
+<p>To install a package you use the function <code>install.packages</code>, so to install the tidyverse packages you run <code>install.packages("tidyverse")</code>. Then to use the package you have to load it into your environment using the function <code>library</code>, so to use the tidyverse functions and features you run <code>library(tidyverse)</code> (note you need inverted commas for <code>install.packages</code> but not for <code>library</code>). <strong>You only have to install a package once, or again if you want to update the package, but you have to load the package every time you start a new session in R</strong>. Note that the default packages that come with R do not have to be installed or loaded using <code>install.packages</code> and <code>library</code>.</p>
+<p>Within tidyverse there are eight core packages, and then a couple of extra packages and some back-end packages. All of these are installed when you run <code>install.packages("tidyverse")</code>, but only the core packages are loaded when you run <code>library(tidyverse)</code>. This is not something that you have to worry too much about, it just means that you have to run an extra <code>library</code> line when you want to use one of those extra packages that come with tidyverse but are beyond the core tidyverse packages.</p>
 </div>
 </div>
 <div id="getting-help" class="section level2">
@@ -285,8 +285,30 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <h2>A word on web restrictions</h2>
 <p>R needs to access the web in order to download packages from CRAN. You may also want to import data from the web, e.g. through the csodata package for importing data from the CSO website. If you are having trouble with these steps then it may be because your organisation has not allowed R to access the web, so you might need to contact your IT department. If you are in the same organisation as me and you are experiencing difficulties, let me know, there are some settings that I can pass on that will help.</p>
 </div>
-<div id="making-objects" class="section level2">
-<h2>Making objects</h2>
+<div id="data-objects-in-r" class="section level2">
+<h2>Data objects in R</h2>
+<div id="dataframes" class="section level3">
+<h3>Dataframes</h3>
+<p>Most of the data objects you’ll encounter will be <strong>dataframes</strong>, which are just tables with rows and columns, and where each column has a particular type which can be numerical, character (strings) or logical (TRUE or FALSE). As far as I know, the columns of all dataframes have names. The rows of dataframes can have names too, but this is a stupid feature, it makes more sense to just use another column for that information.</p>
+<p>In tidyverse, there is an improved version of a dataframe called a tibble. The differences between a tibble and a regular dataframe are quite subtle from the beginner’s perspective, so I wouldn’t worry about it for now. Just be aware that if you see a reference to a ‘tibble’ then it’s a special type of a dataframe.</p>
+</div>
+<div id="vectors" class="section level3">
+<h3>Vectors</h3>
+<p>In a few instances we will be using <strong>vectors</strong> which are one-dimensional objects containing the same type of data (e.g. all character-type). These are created using the function <code>c()</code>, with the elements separated by commas. A vector of three names would look like: <code>c("Andy", "Betty" , "Carol")</code>. A vector of three numbers would look like: <code>c(71, 8.5 , 0.13)</code>. You can make a vector of consecutive integers by putting a colon (<code>:</code>) between the low and high integer, so <code>5:8</code> is equivalent to <code>c(5, 6, 7, 8)</code>. Finally, you can make a logical vector like so: <code>c(TRUE, FALSE, FALSE)</code>.</p>
+</div>
+<div id="other-structures" class="section level3">
+<h3>Other structures</h3>
+<p>There are other objects in R including matrices, arrays and lists. A matrix is a 2D table with only one type of data (usually all numeric). An array is more general than a matrix, it can have any number of dimensions. I don’t think I have ever had to use matrices or arrays.</p>
+<p>A list is a 1D structure where the elements don’t have to be of the same type, i.e. the first element could be a number and the second element could be a string. But moreover, the elements of lists can be vectors, dataframes, or even more lists. Dealing with lists would be for an intermediate or advanced course, but even as a beginner you might find yourself working with a package which uses lists. Often in these cases, the lists have a specific structure, or ‘class’, which is recognised by the package. Don’t panic, there will usually be a helpful vignette for you to follow.</p>
+</div>
+<div id="how-to-make-a-dataframe" class="section level3">
+<h3>How to make a dataframe</h3>
+<p>‘How do I make a dataframe?’ is a fair question, but in my experience you rarely need to make one from scratch in the R environment. You usually import a dataset from file or from the web which then becomes a dataframe, or you might practice with some of the dataframes that are pre-loaded in R.</p>
+<p>But because it is a reasonable question I have included an example below of a dataframe being created with three columns and three rows. It is created using the function <code>dataframe</code>, with arguments for each column which are separated by columns. Each argument is a vector which has a name given to it by the equals sign. The first column is type character and contains a name, the second is called ‘Age’ and contains a number, and the third is a logical (TRUE/FALSE) column which indicates if each person is employed. Note that for the logical column I am using <code>T</code> and <code>F</code> which are abbreviated versions of <code>TRUE</code> and <code>FALSE</code>.</p>
+<pre class="r"><code>simple_dataframe &lt;- data.frame(Name = c(&quot;Brendan&quot;, &quot;Mary&quot;, &quot;Alice&quot;),
+                               Age = c(35, 70, 1),
+                               Employed = c(T, F, F))</code></pre>
+</div>
 </div>
 <div id="drop-keep-and-rename-variables" class="section level2">
 <h2>Drop, keep and rename variables</h2>
