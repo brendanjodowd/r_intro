@@ -1,5 +1,5 @@
 ---
-title: "Introduction to R"
+title: "A Crash Course in R"
 author: "[Home](https://brendanjodowd.github.io)"
 output: 
   html_document:
@@ -10,7 +10,15 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message=F ,warning=F)
+
+kable_this <- function(dataset){
+  dataset %>% 
+    knitr::kable() %>% 
+    kableExtra::kable_styling("striped", full_width = F) %>%
+    kableExtra::scroll_box(height = "200px")
+}
+
 ```
 
 ```{=html}
@@ -19,27 +27,48 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </style>
 ```
 
-## Overview
+## Introduction
+
+### About R and RStudio
 
 R is a flexible, convenient and powerful tool for managing and analysing data, and well as for creating publication materials such as visualisations, reports and dashboards. RStudio is an IDE (Integrated Development Environment) for using R. R is free to install, as is the open source edition of RStudio (there are professional and hosted versions of RStudio which are not free). In my opinion, R and RStudio provide at least as much of the functionality you would see in other quite expensive statistical computing platforms. 
 
-### Packages and Tidyverse
+### About this guide
 
-The capabilities of R are extended through a wide array of packages. As a beginner with R, it is likely that all of the extra packages that you use will be downloaded from an online repository of packages called CRAN, which stands for the Comprehensive R Archive Network. Packages are downloaded from CRAN within the R environment, you rarely have to visit the CRAN website at all. There is a stringent process to getting your package included on CRAN which includes a series of checks and testing, so there is a very low likelihood of you ever downloading malicious code from CRAN.
 
-Tidyverse is a very widely used collection of packages which makes it easier to write and read code in R. It is so commonly used that it is almost ubiquitous, so I wouldn't hesitate to recommend that you begin learning R through tidyverse. If you are not using tidyverse and you are only using the handful of default packages in R then you would say that you are using 'base R', where 'base' is the main default package (I think there are seven default packages). This is not an 'either-or' decision, when you load tidyverse it is perfectly fine to write code using the 'base' set of functions. It's good to understand base R, but I think it's ok to pick this up as you go along rather than starting out with exclusive use of base R.
+This guide will be just enough to get you going. It does not show the full range of features for every function. It uses tidyverse and isn't very concerned with technical stuff going on under the hood. 
 
-To install a package you use the function `install.packages`, so to install the tidyverse packages you run `install.packages("tidyverse")`. Then to use the package you have to load it into your environment using the function `library`, so to use the tidyverse functions and features you run `library(tidyverse)` (note you need inverted commas for `install.packages` but not for `library`). **You only have to install a package once, or again if you want to update the package, but you have to load the package every time you start a new session in R**. Note that the default packages that come with R do not have to be installed or loaded using `install.packages` and `library`. 
-
-Within tidyverse there are eight core packages, and then a couple of extra packages and some back-end packages. All of these are installed when you run `install.packages("tidyverse")`, but only the core packages are loaded when you run `library(tidyverse)`. This is not something that you have to worry too much about, it just means that you have to run an extra `library` line when you want to use one of those extra packages that come with tidyverse but are beyond the core tidyverse packages.
-
-## Getting help
+### Getting help
 
 The help function in R provides great documentation and examples for all functions. Use it by running `?` followed by the name of the function. For example, to find out more about the function `select` just run `?select`.
 
 There are very good [cheatsheets for different packages on the RStudio website](https://www.rstudio.com/resources/cheatsheets/). One cheatsheet that you won’t find on that page but which I think is really useful for beginners is [the one on data wrangling](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf).
 
 Finally there are a couple of good online forums where users post their coding problems and other users try to provide solutions. One of the most active of these is Stack Overflow. Try searching or posting your problem there if you are getting stuck. Users are more likely to be able to help if you provide a reproducible example, so try to provide enough code so that they can recreate the problem themselves. 
+
+### A word on web restrictions
+
+R needs to access the web in order to download packages from CRAN. You may also want to import data from the web, e.g. through the csodata package for importing data from the CSO website. If you are having trouble with these steps then it may be because your organisation has not allowed R to access the web, so you might need to contact your IT department. If you are in the same organisation as me and you are experiencing difficulties, let me know, there are some settings that I can pass on that will help.
+
+## Packages and Tidyverse
+
+### About packages
+
+The capabilities of R are extended through a wide array of packages. As a beginner with R, it is likely that all of the extra packages that you use will be downloaded from an online repository of packages called CRAN, which stands for the Comprehensive R Archive Network. Packages are downloaded from CRAN within the R environment, you rarely have to visit the CRAN website at all. There is a stringent process to getting your package included on CRAN which includes a series of checks and testing, so there is a very low likelihood of you ever downloading malicious code from CRAN.
+
+### Tidyverse and Base R
+
+Tidyverse is a very widely used collection of packages which makes it easier to write and read code in R. It is so commonly used that it is almost ubiquitous, so I wouldn't hesitate to recommend that you begin learning R through tidyverse. If you are not using tidyverse and you are only using the handful of default packages in R then you would say that you are using 'base R', where 'base' is the main default package (I think there are seven default packages). This is not an 'either-or' decision, when you load tidyverse it is perfectly fine to write code using the 'base' set of functions. It's good to understand base R, but I think it's ok to pick this up as you go along rather than starting out with exclusive use of base R.
+
+### Installing and loading
+
+To install a package you use the function `install.packages`, so to install the tidyverse packages you run `install.packages("tidyverse")`. Then to use the package you have to load it into your environment using the function `library`, so to use the tidyverse functions and features you run `library(tidyverse)` (note you need inverted commas for `install.packages` but not for `library`). **You only have to install a package once, or again if you want to update the package, but you have to load the package every time you start a new session in R**. Note that the default packages that come with R do not have to be installed or loaded using `install.packages` and `library`. 
+
+### Core tidyverse and other tidyverse
+
+Within tidyverse there are eight core packages, and then a couple of extra packages and some back-end packages. All of these are installed when you run `install.packages("tidyverse")`, but only the core packages are loaded when you run `library(tidyverse)`. This is not something that you have to worry too much about, it just means that you have to run an extra `library` line when you want to use one of those extra packages that come with tidyverse but are beyond the core tidyverse packages.
+
+
 
 ## The RStudio environment
 
@@ -50,58 +79,842 @@ A screenshot of RStudio is shown below. There are four main panels. This guide w
 - I would call the top right panel the environment panel, even though 'Environment' is only one of the six tabs in that panel, because I have never used the other five tabs. The environment panel shows you all the datasets and other variables that you have created. There is a blue arrow next to the datasets which allows you to browse their structure. Note that there are some datasets which exist and which you can use, but they don't appear in the environment panel. These are usually associated with training or as demo datasets to play with a package. One of these is `mtcars`, which contains information on 32 cars. In the code in the screenshot, I have used `mtcars` to make a new duplicate dataset called `my_data` which does appear in the environment panel.
 - The bottom right panel shows plots and help, and also allows you to browse files and installed packages. I don't think it is too difficult to find your way around this panel. If you create a plot or run a help command then the appropriate tab will become active. 
 
-![A screenshot of the RStudio environment](r_environment.png)
+![A screenshot of the RStudio environment](r_environment2.png)
 
-## A word on web restrictions
-
-R needs to access the web in order to download packages from CRAN. You may also want to import data from the web, e.g. through the csodata package for importing data from the CSO website. If you are having trouble with these steps then it may be because your organisation has not allowed R to access the web, so you might need to contact your IT department. If you are in the same organisation as me and you are experiencing difficulties, let me know, there are some settings that I can pass on that will help. 
+ 
 
 ## Data objects in R
 
-### Dataframes
-
-Most of the data objects you'll encounter will be **dataframes**, which are just tables with rows and columns, and where each column has a particular type which can be numerical, character (strings) or logical (TRUE or FALSE). As far as I know, the columns of all dataframes have names. The rows of dataframes can have names too, but this is a stupid feature, it makes more sense to just use another column for that information.
-
-In tidyverse, there is an improved version of a dataframe called a tibble. The differences between a tibble and a regular dataframe are quite subtle from the beginner's perspective, so I wouldn't worry about it for now. Just be aware that if you see a reference to a 'tibble' then it's a special type of a dataframe. 
 
 ### Vectors
 
-In a few instances we will be using **vectors** which are one-dimensional objects containing the same type of data (e.g. all character-type). These are created using the function `c()`, with the elements separated by commas. A vector of three names would look like: `c("Andy", "Betty" , "Carol")`. A vector of three numbers would look like: `c(71, 8.5 , 0.13)`. You can make a vector of consecutive integers by putting a colon (`:`) between the low and high integer, so `5:8` is equivalent to `c(5, 6, 7, 8)`. Finally, you can make a logical vector like so: `c(TRUE, FALSE, FALSE)`.
+Vectors are one-dimensional objects containing the same type of data, so all entries are either numerical, character (strings) or logical (TRUE or FALSE). These are created using the function `c()`, with the elements separated by commas. A vector of three names would look like: `c("Andy", "Betty" , "Carol")`. A vector of three numbers would look like: `c(71, 8.5 , 0.13)`. You can make a vector of consecutive integers by putting a colon (`:`) between the low and high integer, so `5:8` is equivalent to `c(5, 6, 7, 8)`. Finally, you can make a logical vector like so: `c(TRUE, FALSE, FALSE)`.
+
+### Dataframes
+
+Most of the data objects you'll encounter will be **dataframes**, which can be thought of as tables with rows and columns. Each column has a particular type which can be numerical, character (strings) or logical (TRUE or FALSE). The columns of dataframes have names. The rows of dataframes can have names too, but this is a stupid feature, it makes more sense to just use another column for whatever information is stored as the row name.
+
+
+<div class = "blue">
+<details>
+  <summary>*The columns of dataframes are vectors. So what?*</summary>
+It is useful to know that the columns of dataframes are themselves vectors. Why is that useful to know? Two reasons. One is that you can extract a column from a dataframe and manipulate it as a vector. The second reason is that programming in R is generally geared towards working with vectors as the basic unit. It is easier to program in R with "long" datasets, where you have data for different groups stacked vertically, so you might have a column for X, a column for Y, and a column for group. If you were working in Excel you would probably arrange things differently, maybe with a "wide" dataset, having a column for X, then a column for Y_1 (representing group 1), a column for Y_2 (representing group 2), and so on. You will find that row-wise operations in R are not as straightforward as column-wise operations. Writing for loops over a dataframe is pretty slow and discouraged. You might notice other effects like this as you become more proficient. 
+</details>
+</div>
+
+
+In tidyverse, there is an improved version of a dataframe called a tibble. The differences between a tibble and a regular dataframe are quite subtle from the beginner's perspective and they can more-or-less be handled in the same way, so I wouldn't worry about it for now. Just be aware that if you see a reference to a 'tibble' then it's a special type of a dataframe. 
+
+
 
 ### Other structures
 
-There are other objects in R including matrices, arrays and lists. A matrix is a 2D table with only one type of data (usually all numeric). An array is more general than a matrix, it can have any number of dimensions. I don't think I have ever had to use matrices or arrays. 
+There are other objects in R including matrices, arrays and lists. You can skip this section if you like as it is unlikely you will need to deal with them as a beginner. 
 
-A list is a 1D structure where the elements don't have to be of the same type, i.e. the first element could be a number and the second element could be a string. But moreover, the elements of lists can be vectors, dataframes, or even more lists. Dealing with lists would be for an intermediate or advanced course, but even as a beginner you might find yourself working with a package which uses lists. Often in these cases, the lists have a specific structure, or 'class', which is recognised by the package. Don't panic, there will usually be a helpful vignette for you to follow. 
+<div class = "blue">
+<details>
+  <summary>*Click for info on other structures*</summary>
+A matrix is a 2D table with only one type of data (usually all numeric). An array is more general than a matrix, it can have any number of dimensions. I don't think I have ever had to use matrices or arrays. 
 
-### How to make a dataframe
+A list is a 1D structure where the elements don't have to be of the same type, i.e. the first element could be a number and the second element could be a string. But moreover, the elements of lists can be vectors, dataframes, or even more lists. Dealing with lists would be for an intermediate or advanced course, but even as a beginner you might find yourself working with a package which uses lists. Often in these cases, the lists have a specific structure, or 'class', which is recognised by the package. Don't panic, there will usually be a helpful vignette for you to follow.
+</details> 
+</div> 
 
-'How do I make a dataframe?' is a fair question, but in my experience you rarely need to make one from scratch in the R environment. You usually import a dataset from file or from the web which then becomes a dataframe, or you might practice with some of the dataframes that are pre-loaded in R. 
+## Fundamentals: Running Code and Creating Objects 
 
-But because it is a reasonable question I have included an example below of a dataframe being created with three columns and three rows. It is created using the function `dataframe`, with arguments for each column which are separated by columns. Each argument is a vector which has a name given to it by the equals sign. The first column is type character and contains a name, the second is called 'Age' and contains a number, and the third is a logical (TRUE/FALSE) column which indicates if each person is employed. Note that for the logical column I am using `T` and `F` which are abbreviated versions of `TRUE` and `FALSE`. 
+This section covers just a couple of fundamental tools from Base R. . I prefer to do all my data filtering, manipulation and aggregation using tidyverse functions, so those kinds of processes are not covered here. 
 
-```{r making_df ,message=F, warning=F}
-simple_dataframe <- data.frame(Name = c("Brendan", "Mary", "Alice"),
-                               Age = c(35, 70, 1),
-                               Employed = c(T, F, F))
+### How do I run code?
+
+After you write some code in the scripting window you will want to run it. My preferred way to run code is to place the cursor somewhere in the line of code and press 'Ctrl Enter'. As well as running the line of code, the cursor will then jump to the next line of code, and this is useful as it helps you to run several concurrent lines of code by holding 'Ctrl' and tapping 'Enter'.
+
+You can also write code directly in the console. After you write your code there, simply hit 'Enter' and it will run.
+
+
+<div class = "blue">
+<details>
+  <summary>*Click to see other ways of running code*</summary>
+There are other ways of running code from your scripting window. Pressing the 'Run' button at the top of the scripting window has the same effect as hitting 'Ctrl Enter'. Instead of placing the cursor in the line of code you can select the whole line of code. You can select several lines of code and then hit 'Ctrl Enter' or 'Run', and they will all run in the order they appear. 
+
+Finally, you can run all of the code in the script by pressing 'Ctrl Alt r'. Note that this also saves the script.
+</details> 
+</div>
+
+
+
+
+### The assignment operator `<-`
+
+To create objects, we use the assignment operator: `<-` You can quickly write this operator by hitting 'Alt -'. Let's make an object `x` which has a value of 5.
+
+
+```{r}
+x <- 5
+```
+
+After you run this line of code you will see the code appear in the Console, and `x` appear in the Environment panel along with its value, 5. 
+
+To output the value of `x`, we can write `x` in a line on its own and run that line. The value 5 will appear in the Console. We can also run `x + 2` to return `7`. 
+
+```{r , collapse=T}
+x
+
+x + 2
+```
+
+
+Let's make a vector containing a couple of numeric values using the function `c`, and output it as well. 
+
+```{r}
+numbers_vec <- c(5,6,7,8,9)
+
+numbers_vec
+```
+
+<div class = "blue">
+<details>
+  <summary>*Click to example of string and logical vectors*</summary>
+We can make a vector of strings by putting each string in inverted commas. We can use single or double inverted commas.  
+
+```{r}
+names_vec <- c("Mary", "Louise", "Tom")
+
+names_vec
+```
+
+And we can make a logical vector like so. Note that I am writing `T` and `F` which are abbreviations of `TRUE` and `FALSE` and work in exactly the same way. 
+
+```{r}
+logical_vec <- c(T, F, F, T)
+
+logical_vec
+```
+</details>
+</div>
+
+I find that I very rarely need to make dataframes from scratch. As a beginner you usually work with built-in sample dataframes, and as a regular user you usually work with dataframes created from data from files or from the web. 
+
+Although the built-in datasets don't appear in the Environment panel, they are all there waiting to be used. We will make our own copy of a dataset from a study on oesophageal cancer which is called `esoph`. Our copy of this dataset will be called `cancer`. Note that `cancer` will appear in the Environment panel. 
+
+```{r}
+cancer <- esoph
+```
+
+```{r , echo=F}
+library(tidyverse)
+knitr::kable(cancer) %>% 
+  kableExtra::kable_styling("striped", full_width = F) %>% 
+  kableExtra::scroll_box(#width = "100%", 
+                         height = "200px")
+```
+
+<div class = "blue">
+<details>
+  <summary>*Click to see how to make a dataframe from scratch*</summary>
+
+Like I say, this is something you rarely need to do. Dataframes are created using a bunch of named vectors separated by commas, within the function `data.frame()`. Here I am making a character variable called `name`, a numerical variable called `age`, and a logical variable called `married`.
+
+```{r}
+some_dataframe <- data.frame(name = c("Mary", "Louise", "Tom"),
+                             age = c(30, 40, 50),
+                             married = c(FALSE, TRUE, TRUE))
+```
+</details>
+</div>
+
+### Accessing elements with `[]` and `$` 
+
+We can use the square brackets `[]` to access specific elements within vectors and dataframes. Let's create the vector `numbers_vec` as before and access the second element using `numbers_vec[2]`. 
+
+```{r}
+numbers_vec <- c(5,6,7,8,9)
+numbers_vec[2]
+```
+
+Similarly we can access the i<sup>th</sup> row and the j<sup>th</sup> column of a dataframe using `[i,j]`. Let's go to the fifth row of the second column of the `cancer` dataframe using `cancer[5,2]`. 
+
+
+```{r}
+cancer <- esoph
+
+cancer[5,2]
+```
+
+You'll see in the output above that as well as giving the contents of that cell (which is `40-79`), it shows: `Levels: 0-39g/day < 40-79 < 80-119 < 120+`. This is because this particular variable (`alcgp`) is stored as a **factor**. A full discussion of factors would be better placed in an intermediate guide to R, but in this context a factor is a variable where each element can have one of several possible values or **levels**. The allowed levels of the variable `alcgp` are `0-39g/day`, `40-79`, `80-119` and `120+`. The levels of a factor can be given an order, in which case we would say that the variable is an 'ordinal variable'. Factors have many uses. In particular they can be used for sorting string variables in an order that is not alphabetical, for example `Low`, `Medium`, `High`. 
+
+We can access a whole row or a whole column of a dataframe by using square brackets with either `i` or `j` left blank. For example, we can access the whole fifth row of `cancer` using `cancer[5,]`:
+
+```{r}
+cancer[5,]
+```
+
+To access a whole column we can leave `i` blank and include the value for `j` (like `cancer[,2]`). Alternatively, and perhaps more practically, we can refer to the column by name. Here we will output the column `agegp` using `cancer$agegp`, and this will print all 88 elements (along with the list of levels, which are ordered).
+
+```{r}
+cancer$agegp
+```
+
+As mentioned in one of the collapsible sections above, the columns of dataframes are themselves vectors. So we can access the fifth element of the column `agegp` using square brackets, e.g.: 
+
+```{r}
+cancer$agegp[5]
+```
+
+### Viewing dataframes
+
+The easiest way to view a dataframe is by clicking on it in the Environment panel. The dataframe will then appear in its own window in the top-left panel, and you can scroll and search within that window. Note that `View(`*dataset name*`)` will appear in the console. Running that line of code would have the same effect. 
+
+Beside the name of each dataframe in the environment panel is a blue arrow which allows you to expand the dataset to look at the variable names and the first couple of values. This view also tells you the type of each value (logical (logi), numeric (num) or character (chr)). It also tells you if a variable is stored as a factor, as is the case for three of the variables in the `cancer` dataset. 
+
+A very similar view to that produced by expanding the values in the environment panel can be achieved using the `glimpse` function (e.g. run `glimpse(cancer)`). This is output to console. 
+
+You can output the first or last couple of lines of a dataframe to console using the `head` and `tail` functions (e.g. run `head(cancer)`). By default it prints the first (or last) 6 rows, but you can change that using the extra argument `n` (e.g. run `head(cancer , n=10)`).
+
+You can print an entire dataframe to console by simply running the name of the dataframe on its own.
+
+## The pipe and five key functions
+
+We'll go through five of the most important functions in R. These are all from tidyverse, so you will need to load the tidyverse package before progressing. 
+
+```{r}
+library(tidyverse)
+```
+
+Most of the examples below start with the dataset `cancer` which was created as a copy of `esoph` as shown earlier. In each case the dataset `cancer` is pushed into a function and the result is shown below. In practice what you might do is create a new dataset to capture the output, by writing the name of your dataset and the assignment operator `<-` at the top, so instead of...
+
+```{r, eval=F}
+cancer %>% 
+  some_function()
+```
+
+...you might have...
+
+```{r , eval=F}
+my_new_dataset <- cancer %>% 
+  some_function()
+```
+
+### The pipe: %>% 
+
+The pipe is a tool which allows you to pass an object such as a dataframe through a series of operations. It makes code much easier to read and write. The way it works is that it takes whatever is on the left hand side and pushes it through the function on the right hand side. The shortcut for writing a pipe is 'Ctrl Shift m'. Suppose we have a dataset called `my_dataset` and we want to apply a function called `some_function`, the following two lines of code would be equivalent:
+
+```{r , eval=F}
+my_dataset %>% some_function()
+
+# the following line is equivalent:
+some_function(my_dataset)
+```
+
+It is clearer why the pipe makes code easier to read and write when you consider a series of functions which may each have additional arguments. Suppose we want to subsequently apply another function called `another_function`, and furthermore that the two functions require `argument_A` and `argument_B`. Compare the following two equivalent lines of code. 
+
+```{r, eval=F}
+my_dataset %>% 
+  some_function(argument_A = 10) %>% 
+  another_function(argument_B = 20) 
+
+# the following line is equivalent, but much harder to read!
+another_function( some_function( my_dataset , argument_A = 10), argument_B = 20 )
+```
+
+The pipe always passes the left-hand side as the **first argument** to the function on the right hand side. What does this mean? It means that functions that work with the pipe have to be set up so that their first argument is the object that is being manipulated (usually a dataframe). All of the tidyverse functions are set up in this way, so it's not something that you need to worry too much about. If you were creating your own function for manipulating a dataframe in some way (something for an intermediate course) and wanted it to be compatible with the pipe, you would set it up so that the first argument to your function was the incoming dataframe. 
+
+### select()
+
+The `select` function allows you to select specific **columns** from a dataframe. Like other tidyverse functions, the first argument is the dataframe, so it can be used with the pipe. Then you can pass the names of variables that you want to keep. Here we'll take the `cancer` dataframe and keep just the variables `agegp` and `alcgp`.
+
+```{r , eval=F}
+cancer %>% 
+  select(agegp , alcgp)
+```
+
+```{r , echo=F}
+cancer %>%
+  select(agegp , alcgp) %>%
+  kable_this() 
+```
+
+We can also drop variables by putting a minus sign in front of them. Here we'll drop the variables `alcgp` and `tobgp`. 
+
+```{r , eval=F}
+cancer %>%
+  select(-alcgp , -tobgp)
+```
+
+```{r , echo=F}
+cancer %>%
+  select(-alcgp , -tobgp) %>%
+  kable_this() 
+```
+
+There are a couple of really useful 'selection helper' functions that help you to keep or drop variables which contain certain string patterns. For example, we can use `select` with the selection helper function `contains` with the argument `"gp"` to select only variables whose names contain the string pattern "gp" (so `agegp`, `alcgp` and `tobgp`). The functions `starts_with` and `ends_width` are similar but the variable name has to start or end with the string pattern. 
+
+Here we will put a minus in front of `contains` to **drop** variables containing the string pattern "gp". 
+
+```{r , eval=F}
+cancer %>%
+  select(-contains("gp"))
+```
+
+```{r , echo=F}
+cancer %>%
+  select(-contains("gp")) %>%
+  kable_this() 
+```
+
+### filter()
+
+The `filter` function allows you to select specific **rows** from a dataframe. Again the first argument is the dataframe so that it can be used by the pipe. Then you provide some logical expression based on the variables in the dataframe, and cases where that expression is true are retained in the output. Let's take the `cancer` dataframe again and filter out the rows where `tobgp` is equal to `"30+"`. Note the use of the double equals `==` which is the binary comparison operator for 'equals'.
+
+```{r , eval=F}
+cancer %>%
+  filter(togbp == "30+")
+```
+
+```{r , echo=F}
+cancer %>%
+  filter(tobgp == "30+") %>%
+  kable_this() 
+```
+
+You can specify several conditions within a single `filter` function. If you have two conditions and want **both** of them to apply, you can separate them using a comma or the boolean 'AND' symbol which is the ampersand `&`. 
+
+If you have two conditions and want **either** of them to apply you separate them using the boolean 'OR' symbol which is the pipe `|` (unfortunately this character has the same name as the `%>%` tool in R, but it would be read as 'OR').
+
+Let's filter the cancer dataset keeping cases where `ncases` is not equal to zero **or** `ncontrols` is greater than 20.
+
+```{r , eval=F}
+cancer %>%
+  filter(ncases != 0 | ncontrols > 20)
+```
+
+```{r , echo=F}
+cancer %>%
+  filter(ncases != 0 | ncontrols > 20) %>%
+  kable_this() 
+```
+
+What if we want to filter cases where a variable matches one of a selection of different values? Using multiple OR statements would become messy after about 3 options. A better way is to use the value matching tool `%in%`. The format is `x %in% c(a, b, c, ... )` where `c(a, b, c, ... )` is a vector of options which are the same type as the variable `x`. Let's filter the cancer dataset keeping only the rows where `ncases` in equal to 3, 4, 5 or 6.
+
+```{r , eval=F}
+cancer %>%
+  filter(ncases %in% c(3,4,5,6))
+```
+
+```{r , echo=F}
+cancer %>%
+  filter(ncases %in% c(3,4,5,6)) %>%
+  kable_this() 
+```
+
+Note that since these four options are consecutive integers, we could have written the vector simply as `3:6`, so an equivalent piece of code would be:
+
+```{r , eval=F}
+cancer %>%
+  filter(ncases %in% 3:6)
+```
+
+### mutate()
+
+#### Simple variable creation
+
+The `mutate` function is used to edit variables or to create new ones. Let's take the `cancer` dataset and create a new variable called `new_var` which is just equal to `ncases` plus 5.
+
+```{r , eval=F}
+cancer %>%
+  mutate(new_var = ncases + 5)
+```
+
+```{r , echo=F}
+cancer %>%
+  mutate(new_var = ncases + 5) %>%
+  kable_this() 
+```
+
+#### Conditional variables
+
+We can create a variable whose value is conditional on another variable using `if_else`. This function takes a logical expression as its first argument, and then its second and third arguments provide the result if the expression is true or false respectively. Let's make a variable called `lots_of_controls` which is `"Y"` if `ncontrols` is greater than 15, and `"N"` otherwise. We'll begin by selecting just the column `ncontrols` to make the output easier to read. 
+
+```{r , eval=F}
+cancer %>%
+  select(ncontrols) %>% 
+  mutate(lots_of_controls = if_else(ncontrols > 15 , "Y" , "N"))
+```
+
+```{r , echo=F}
+cancer %>%
+  select(ncontrols) %>% 
+  mutate(lots_of_controls = if_else(ncontrols > 15 , "Y" , "N")) %>%
+  kable_this() 
+```
+
+
+
+<div class = "blue">
+<details>
+  <summary>*Let's say I wanted to do some conditional editing on one of those factor variables...*</summary>
+
+Suppose you wanted to change the variable `tobgp` so that instead of having `30+` it would read `30 or more`. If `tobgp` was a regular string variable, you could use the following. Note that the 'false' option (the third argument to `if_else`) is simply `tobgp`, meaning that `tobgp` is left as-is if the logical expression is false. This is a common structure, at least for me. 
+
+```{r , eval=F}
+cancer %>%
+  mutate(tobgp = if_else(tobgp == "30+" , "30 or more" , tobgp))
+```
+
+However, if you try to run that piece of code you'll get an error, and this is because `tobgp` is a factor with defined levels, and `"30 or more"` is not one of those levels. 
+
+There are two options here. The first is to change the variable `tobgp` into a regular character variable using `mutate` with `as.character`, and then do the switcheroo.
+
+```{r , eval=F}
+cancer %>%
+  mutate(tobgp = as.character(tobgp)) %>% 
+  mutate(tobgp = if_else(tobgp == "30+" , "30 or more" , tobgp))
+```
+
+```{r , echo=F}
+cancer %>%
+  mutate(tobgp = as.character(tobgp)) %>% 
+  mutate(tobgp = if_else(tobgp == "30+" , "30 or more" , tobgp)) %>% 
+  kable_this()
+```
+
+That would work, but you would lose the ordered factor levels of `tobgp` which is useful for sorting. You could re-create the factor again (not hard but beyond the scope of a crash course). A better way might be to **recode** the level `"30+"` in the original factor using the function `fct_recode`. Here's how you would do that:
+
+```{r , eval=F}
+cancer %>%
+  mutate(tobgp = fct_recode(tobgp , "30 or more" = "30+"))
+```
+
+```{r , echo=F}
+cancer %>%
+  mutate(tobgp = fct_recode(tobgp , "30 or more" = "30+")) %>% 
+  kable_this()
+```
+
+</details>
+</div>
+
+
+The function `case_when` provides even greater (potentially unlimited) options for conditionally defining a value. The format for this function is a logical expression (condition) followed by a tilde (`~`) followed by the value to be assigned in the event of that expression being true. This is repeated for further conditions, with each option separated by a comma, and usually written on separate lines for ease of reading. Below is an example where `amount_of_controls` has a value of `"very few"` if `ncontrols` is less than 10, `"a couple"` if `ncontrols` is between 10 and 19, and `"lots"` for `ncontrols` equal to 20 or more.
+
+```{r , eval=F}
+cancer %>%
+  select(ncontrols) %>% 
+  mutate(amount_of_controls = case_when(
+    ncontrols < 10 ~ "very few",
+    ncontrols < 20 ~ "a couple",
+    ncontrols >= 20 ~ "lots"
+  ))
+```
+
+```{r , echo=F}
+cancer %>%
+  select(ncontrols) %>% 
+  mutate(amount_of_controls = case_when(
+    ncontrols < 10 ~ "very few",
+    ncontrols < 20 ~ "a couple",
+    ncontrols >= 20 ~ "lots"
+  )) %>% 
+  kable_this() 
+```
+
+Note that the value returned by `case_when` is determined by the **first true expression**. This means that for the second condition we don't have to specify that `ncontrols` is greater or equal to 10, we write `ncontrols < 20` rather than `ncontrols >=10 & ncontrols < 20`. This is because the possibility that is `ncontrols` is less than 10 is already covered off by the first expression. If `ncontrols` was equal to 5, for example, it would never make it past the first condition into the second condition. 
+
+For the third expression (`ncontrols >= 20`) it shouldn't have been necessary to specify any logical expression at all, since **all** cases remaining after the first two expressions would be greater than 20 by default and should be categorised as `"lots"`. We can therefore replace `ncontrols >= 20` with the word `TRUE` and get the same result (output not shown but identical to the above).
+
+```{r , eval=F}
+cancer %>%
+  select(ncontrols) %>% 
+  mutate(amount_of_controls = case_when(
+    ncontrols < 10 ~ "very few",
+    ncontrols < 20 ~ "a couple",
+    TRUE ~ "lots"
+  ))
+```
+
+
+#### Summary, size and row number functions
+
+Before we move on from `mutate` I want to mention a couple of other useful functions because these will be useful later. We can create a variable equal to the minimum, maximum or sum of another variable using the functions `min`, `max` and `sum`. Let's calculate the sum of `ncases` as a separate variable.
+
+```{r , eval=F}
+cancer %>%
+  mutate(total_cases = sum(ncases))
+```
+
+```{r , echo=F}
+cancer %>%
+  mutate(total_cases = sum(ncases)) %>% 
+  kable_this() 
+```
+
+We can also create a variable equal to the row number using `row_number`. We'll create `my_id` using this function. Finally we can get the number of entries in the group using `n()`. Let's call this variable `number_of_rows`. We'll create both of these variables at the same time. Note that you can create multiple variables in a single `mutate` function (separated by commas). You can even create a new variable in a `mutate` function and create another variable which depends on the first one within the same `mutate` function. 
+
+We will see later that `row_number` and `n` are pretty versatile functions. 
+
+```{r , eval=F}
+cancer %>%
+  mutate(my_id = row_number() , number_of_rows = n())
+```
+
+```{r , echo=F}
+cancer %>%
+  mutate(my_id = row_number() , number_of_rows = n()) %>% 
+  kable_this() 
+```
+
+
+
+### summarise()
+
+The function `summarise` is used to produce aggregated data from a dataframe. In practice it is almost always used in combination with summary functions such as `max`, `sum`, etc. 
+
+Let's calculate the sum of `ncases` and `ncontrols` from the cancer dataset. We will also calculate the number of rows in the dataset using the function `n()`.
+
+```{r , eval=F}
+cancer %>%
+  summarise(total_cases = sum(ncases) , 
+            total_controls = sum(ncontrols),
+            number_of_rows = n())
+```
+
+```{r , echo=F}
+cancer %>%
+  summarise(total_cases = sum(ncases) , 
+            total_controls = sum(ncontrols),
+            number_of_rows = n()) %>% 
+  kable_this() 
+```
+
+Note that whereas `mutate` added the new calculations as additional rows, `summarise` has done away with the original data. 
+
+### group_by()
+
+The real power of `mutate` and `summarise` becomes clear when you start to use them in combination with `group_by`. This function allows you to and calculate counts and summary functions over groups within the data. With `mutate` the new grouped aggregated data is added to the dataset, and with `summarise` only the aggregated data for each group remains. 
+
+#### group_by with mutate
+
+Let's calculate the total number of controls for each of the four bands of tobacco intake (`tobgp`) and add that as a new column called `total_controls`.
+
+```{r , eval=F}
+cancer %>%
+  group_by(tobgp) %>% 
+  mutate(total_controls = sum(ncases))
+```
+```{r , echo=F}
+cancer %>%
+  group_by(tobgp) %>% 
+  mutate(total_controls = sum(ncases)) %>% 
+  kable_this()
+```
+
+The row number function can be used with `group_by` to produce a counter or unique number for each group. Here we'll create a counter called `age_group_counter` for each value of `agegp`.
+
+```{r , eval=F}
+cancer %>%
+  group_by(agegp) %>% 
+  mutate(age_group_counter = row_number())
+```
+```{r , echo=F}
+cancer %>%
+  group_by(agegp) %>% 
+  mutate(age_group_counter = row_number()) %>% 
+  kable_this()
+```
+
+#### group_by with summarise
+
+Let's get the total number of cases by age group (`agegp`) and tobacco intake group (`tobgp`).
+
+Note that we group by two variables using a single `group_by` statement. If we use a second `group_by` it will overwrite the previous grouping, the function is not 'additive' in that way.
+
+```{r , eval=F}
+cancer %>%
+  group_by(agegp, tobgp) %>% 
+  summarise(total_cases = sum(ncases))
+```
+```{r , echo=F}
+cancer %>%
+  group_by(agegp, tobgp) %>% 
+  summarise(total_cases = sum(ncases)) %>% 
+  kable_this()
+```
+
+#### ungroup
+
+After using a `group_by` you may wish to apply the function `ungroup()`. This could avoid unexpected outcomes later, for example if you were using a summary function on a dataset that you had grouped for the purposes  if you are using a summary function later, for example. Here's how you would use it (results not shown):
+
+```{r , eval=F}
+cancer %>%
+  group_by(tobgp) %>% 
+  mutate(total_controls = sum(ncases)) %>% 
+  ungroup()
+```
+
+## Other useful tools
+
+### Renaming variables
+
+You will probably need to rename variables at some stage. We use the `rename` function to do that. This is another tidyverse function, so its first argument is the dataframe to be edited and therefore it can be used with the pipe. You can rename more than one variable in a single `rename` function. Let's take the cancer dataset and rename the variable `agegp` as `age_group`, and `alcgp` as `alcohol_group`. Note that the order of the variable names in this function is `new_name = old_name`.
+
+```{r , eval=F}
+cancer %>%
+  rename(age_group = agegp , alcohol_group = alcgp)
+```
+```{r , echo=F}
+cancer %>%
+  rename(age_group = agegp , alcohol_group = alcgp) %>% 
+  kable_this()
+```
+
+### Sorting datasets
+
+You can sort datasets using the function `arrange`. This is another tidyverse function so has the dataframe as the first argument and is pipe-friendly. You can sort by as many variables as you like. Let's sort the cancer dataset by `alcgp` and then by `ncases`. Note that since `alcgp` is an ordered factor (ordinal variable), it is sorted according to the order of the levels rather than alphabetically. 
+
+```{r , eval=F}
+cancer %>%
+  arrange(alcgp, ncases)
+```
+```{r , echo=F}
+cancer %>%
+  arrange(alcgp, ncases) %>% 
+  kable_this()
+```
+
+### Combining datasets
+
+#### Joining
+
+You will probably need to join datasets together by some common id or other variable. We don't have anything to join onto the cancer dataset yet, so let's make a dataframe called 'data_set_to_join'. It has one variable in common with the cancer dataset which is `tobgp`, however it has one extra value of `tobgp` which is `"All amounts"`. Then it has another variable called `tobacco_code`. 
+
+```{r }
+data_set_to_join <- data.frame(
+  tobgp = c("0-9g/day", "10-19", "20-29", "30+", "All amounts"),
+  tobacco_code = c("A", "B", "C", "D", "X")
+)
+```
+```{r , echo=F}
+data_set_to_join %>% 
+  kable_this()
+```
+
+The join functions from tidyverse are `inner_join`, `left_join`, `right_join` and `full_join`. You can probably guess what each of these does (if you're not sure check the help, e.g. `?left_join`). Let's do a left join of the cancer dataset onto data_set_to_join. The first two arguments to the join function are the two datasets to be joined, and then there is a `by` argument which is the joining variable wrapped in quotes. If there is more than one joining variable then they are passed to `by` as a vector (e.g. `by = c("var_1", "var_2")`). You can actually leave out the `by` argument and R will join by whatever common variables are present. 
+
+We'll output the resulting dataframe into a new object called 'combined_dataset'. The value of `"All amounts"` for `tobgp` does not appear in combined_dataset since this is a left join, but it would appear if you did a `full_join` or a `right_join` instead. 
+
+```{r }
+combined_dataset <- left_join(cancer, data_set_to_join , by = "tobgp")
+```
+```{r , echo=F}
+combined_dataset %>% 
+  kable_this()
+```
+
+#### Binding
+
+We can also combine datasets by binding them vertically using `bind_rows` and horizontally using `bind_cols`. These functions take the datasets to be bound together as arguments. We don't have any datasets to bind ready to hand, so let's produce 'cancer_young' containing the rows from 'cancer' where the age is "`25-34`" and 'cancer_old' where the age is `"75+"`. 
+
+```{r }
+cancer_young <- cancer %>% 
+  filter(agegp == "25-34")
+
+cancer_old <- cancer %>% 
+  filter(agegp == "75+")
 
 ```
 
-## Drop, keep and rename variables
+Now we can bind these together vertically using `bind_rows` (sorry that this example is a bit artificial). 
 
-## Filter
+```{r }
+combined_dataset <- bind_rows(cancer_young, cancer_old)
+```
+```{r , echo=F}
+combined_dataset %>% 
+  kable_this()
+```
 
-## New variables
+If there was a variable in one dataset but not in the other, then it would appear in the resulting dataset with values of `NA` for the rows coming from the dataset where it did not exist. 
 
-## Counting and summarising
+The function `bind_cols` works in a similar fashion. One or more of arguments can be a vector. It produces an error if the dataframes/vectors have varying numbers of rows/elements. 
 
-## Combining datasets
 
-## Sorting and row-wise operations
+### File input and output
 
-## Converting and rounding
+As well as data stored in R's own file format (.rds) and fairly common data file types like .csv and .txt, you can import a very wide range of data files from other programs through different packages. The package readxl provides functions for reading in Excel files, and the package haven has functions `read_sas` for SAS files, `read_stata` for Stata files, and `read_sav` for SPSS files. There are 'write' versions of these functions that allow you to output these types of files from R. Both readxl and haven are installed as part of the tidyverse collection but they are not loaded with `library(tidyverse)`, so you would have to load them seperately to use these functions (e.g. `library(readxl)`).
 
-## Dealing with strings
+Here we'll just look at CSVs and the native data file format for R (.rds).
 
-## File I/O
+#### CSVs
+
+We can read in a CSV using `read_csv`. The only argument it really needs is the filename, so you could use it like:
+
+```{r, eval=F}
+my_dataframe <- read_csv("my_folder/my_csv_file.csv")
+```
+
+By default it assumes that there is a header row in your CSV which becomes the column names for the dataframe. If that is not the case then use the additional argument `col_names = FALSE`, and it will come up with some default column names on its own. 
+
+To write a dataframe to CSV you use `write_csv`, which takes a dataframe as the first argument and the filename as the second argument, so you could use it like:
+
+```{r, eval=F}
+write_csv(my_dataframe, "my_folder/my_csv_file.csv")
+```
+
+One thing with `read_csv` and `read_excel`: When these functions are used to read a file, they guess the type of a column by looking at the first number of rows. The number of rows that it examines before reading the file is determined by the argument `guess_max`, which by default is set to 1,000. I had a case where I had a very large Excel file and there were some columns with more than 1,000 missing cells before it got to an actual non-missing value. The function `read_excel` then mistook the type of the column and it wasn't read correctly. So I had to set `guess_max = Inf` (`Inf` meaning infinity) so that it checked all the rows to correctly determine column type. 
+
+#### rds
+
+To save a single dataframe to file, use `saveRDS`. It works the same way as `write_csv`, e.g.
+
+```{r, eval=F}
+saveRDS(my_dataframe, "my_folder/my_rds_file.rds")
+```
+
+And to read such a file use `readRDS`, like so:
+
+```{r, eval=F}
+a_new_dataframe <- readRDS("my_folder/my_rds_file.rds")
+```
+
+
+<div class = "blue">
+<details>
+  <summary>*save and load functions*</summary>
+You may see functions `save` and `load`. I don't use them so much. The key differences are that you can save and load as many objects as you like with single `save` and `load` functions, and the `load` function brings back all of the objects with the same names that they were saved with, you don't use `load` with the assignment operator to make a new object. 
+</details>
+</div>
+
+## Plotting
+
+
+### Introduction to ggplot
+
+Plotting is done through the ggplot2 package, which is a core tidyverse package and is loaded with `library(tidyverse)`. 
+
+There are other handy functions for plotting like `plot` and `qplot`, but I think it's best to start with ggplot2 because the format is so general. 
+
+The way it works is something like the pseudocode shown below. It starts out with the function `ggplot` which just takes the dataframe as its argument. Then there is a geometry type function which specifies the kind of plot that will be made. There is `geom_point` for points (scatterplot), `geom_line` for lines, `geom_col` which I use for both column and bar charts, and lots more asides. I've just used `geom_XXX` as a placeholder here, there is no function called `geom_XXX`.
+
+Within the geometry function is the aesthetic mapping function `aes`. This is where you specify what variables in the data are associated with `x` and `y` as well as other variables you might have like `size`, `shape`, `colour`, `fill` etc.
+
+You can have more than one geometry function, e.g. `geom_line` and `geom_points` for a plot with both points and lines. You only ever have one `ggplot` function per plot though. 
+
+The `other_functions` alluded to below refers to functions for altering the appearance of the plot. Don't worry about that for now. 
+
+You'll notice all the separate parts are connected to by a plus sign. I like to insert a new line after each `+` for ease of reading. The indentation is automatic.
+
+```{r , eval=F}
+ggplot(data = the_dataframe) +
+  geom_XXX(mapping = aes(x = var_1 , y = var_2 , <other_variables>) , <options_for_this_geom> ) + 
+  other_functions ...
+
+```
+
+Just so you know, the dataset can be defined within the geometry function (you can put `data = ` within `geom_XXX`) and the aesthetic mapping function can be defined within `ggplot` (you can put `mapping = aes(...)` within `ggplot`). 
+
+Here we'll use the population dataset that comes loaded with tidyverse, but doesn't appear in the Environment panel. You can view it by running `View(population)`. We'll make plots using subsets of data from this, making a dataset called `dataset_to_plot` each time.
+
+```{r , echo=F}
+population %>% 
+  kable_this()
+```
+
+###  Some simple plots
+
+Ok, let's make a dataset just containing `country == "Ireland"` and make a scatterplot with `year` on the x and `population` on the y. 
+
+```{r}
+dataset_for_plot <- population %>% 
+  filter(country == "Ireland")
+
+ggplot(data = dataset_for_plot) + 
+  geom_point(mapping = aes(x = year, y = population))
+```
+
+Nice. We can easily make a line plot by swapping `geom_point` for `geom_line` in the above.
+
+Let's make a line plot with the countries France, Germany and Spain each having a different line colour, plotting their populations over time. Note that unlike x and y, we have to specify the argument `colour = `.
+
+```{r}
+dataset_for_plot <- population %>% 
+  filter(country %in% c("France", "Germany", "Spain"))
+         
+ggplot(data = dataset_for_plot) + 
+  geom_line(mapping = aes(x = year, y = population, colour = country))
+```
+
+Great. Let's make a column plot using `geom_col`. We'll filter a couple of countries and take the data just from 2010.
+
+```{r}
+dataset_for_plot <- population %>% 
+  filter(country %in% c("France", "Germany", "Spain", "Italy", "Poland"), year == 2010)
+         
+ggplot(dat = dataset_for_plot) + 
+  geom_col(mapping = aes(x = country, y = population))
+```
+
+We can turn this into a bar plot easily by adding `coord_flip()`:
+
+```{r}
+ggplot(dat = dataset_for_plot) + 
+  geom_col(mapping = aes(x = country, y = population)) +
+  coord_flip()
+```
+
+Let's return to our line plot for France, Germany and Spain. If we wanted lines and points it would make more sense to put the `aes` mapping function within the `ggplot` rather than in both the `geom_line` and `geom_point`:
+
+```{r}
+dataset_for_plot <- population %>% 
+  filter(country %in% c("France", "Germany", "Spain"))
+         
+ggplot(data = dataset_for_plot , mapping = aes(x = year, y = population, colour = country)) + 
+  geom_line() +
+  geom_point()
+```
+
+### Adjusting labels
+
+Let's do the same plot, but change some of the labels. We'll change the y-axis label to "Persons", leave both the x-axis title and legend title blank, and set the heading to "Population of selected countries over time". All of that can be done through the `labs` function. 
+
+```{r}
+ggplot(data = dataset_for_plot , mapping = aes(x = year, y = population, colour = country)) + 
+  geom_line() +
+  geom_point() +
+  labs(x = "",
+       y = "Persons", 
+       colour = "", 
+       title = "Population of selected countries over time")
+```
+
+### Adjusting axes
+
+Let's do the same plot (we'll forget about the labels) but make two adjustments to the y-axis. We will use the function `scale_y_continuous` which has lots of tools within it for tailoring a continuous y-axis. 
+
+The function `scale_y_continuous` is one of a large family of functions with the format `scale_DIM_FORMAT` where DIM is the dimension (x, y, fill, colour, etc.) and FORMAT is the type of axis. See the second page of the ggplot2 cheatsheet for more information.
+
+We'll change the limits of the y-axis so that it starts at zero. This is done using the `limits` argument to `scale_y_continuous`, and `limits` takes a vector of length two, the first entry being the lower limit and the second entry being the upper limit. I'll set the lower limit to zero, but I'll leave the upper limit as `NA`, meaning that I'll leave it up to the data to determine how high the y-axis should go. 
+
+I'll change the labels on the y so that they show the whole number with comma separators rather than the scientific format which has appeared. That is done with the `labels` argument to `scale_y_continuous`. I'm setting that argument as being equal to `comma`, which is actually a function from the package scales. This package provide a bunch of tools that make it easier to tailor axes and legends. The scales package is installed with tidyverse but needs to be loaded in using `library(scales)`. If the y-axis needed to be formatted as a percentage, then you'd replace `comma` with `percent` (`percent` is another function from scales).
+
+```{r}
+library(scales)
+
+ggplot(data = dataset_for_plot , mapping = aes(x = year, y = population, colour = country)) + 
+  geom_line() +
+  geom_point() + 
+  scale_y_continuous(limits = c(0,NA) , label = comma )
+  
+```
+
+There are tons of other ways to edit the appearance of plots through ggplot, but these would be beyond a crash course. I'll wrap up with one tool for altering the appearance which is to add a theme. There are 8 themes including the default `theme_grey()`. There is `theme_light()`, `theme_dark()`, `theme_bw()`. My favourite is `theme_minimal()`. Use the help (`?theme_grey`) to find out more.
+
+```{r}
+library(scales)
+
+ggplot(data = dataset_for_plot , mapping = aes(x = year, y = population, colour = country)) + 
+  geom_line() +
+  geom_point() + 
+  scale_y_continuous(limits = c(0,NA) , label = comma ) + 
+  theme_minimal()
+  
+```
 
